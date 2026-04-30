@@ -15,7 +15,7 @@
     "skipLibCheck": false,
     "isolatedModules": true,
     "resolveJsonModule": true,
-    "lib": ["ES2023", "DOM", "DOM.Iterable", "WebWorker"],
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "types": []
   }
 }

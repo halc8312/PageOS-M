@@ -1,0 +1,310 @@
+:root {
+  color-scheme: dark;
+  font-family: 'JetBrains Mono', 'SFMono-Regular', 'Consolas', monospace;
+  --pageos-bg: #0a0e27;
+  --pageos-bg-alt: #11193c;
+  --pageos-surface: rgba(17, 25, 60, 0.78);
+  --pageos-surface-solid: rgba(18, 24, 52, 0.96);
+  --pageos-border: rgba(255, 176, 0, 0.45);
+  --pageos-border-strong: rgba(57, 255, 20, 0.5);
+  --pageos-accent: #ffb000;
+  --pageos-accent-strong: #ffd36a;
+  --pageos-success: #39ff14;
+  --pageos-text: #f7f3df;
+  --pageos-muted: #9ea7c3;
+  --pageos-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(57, 255, 20, 0.08), transparent 28%),
+    radial-gradient(circle at top right, rgba(255, 176, 0, 0.08), transparent 32%),
+    linear-gradient(180deg, var(--pageos-bg-alt), var(--pageos-bg));
+  color: var(--pageos-text);
+  overflow: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.boot-stage,
+.desktop-shell,
+.mobile-shell {
+  min-height: 100vh;
+}
+
+.boot-stage {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.boot-stage--splash {
+  background: #000;
+  color: var(--pageos-text);
+  text-align: center;
+}
+
+.boot-splash__logo {
+  font-size: clamp(3rem, 7vw, 5rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  animation: splash-fade 0.48s ease both;
+}
+
+.boot-splash__subtitle {
+  color: var(--pageos-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.boot-stage--terminal {
+  align-content: center;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.92), rgba(10, 14, 39, 0.98));
+}
+
+.boot-terminal__chrome {
+  display: flex;
+  justify-content: space-between;
+  width: min(980px, 100%);
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--pageos-border);
+  border-bottom: none;
+  background: rgba(17, 25, 60, 0.85);
+  color: var(--pageos-accent-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.boot-terminal__log {
+  width: min(980px, 100%);
+  min-height: 420px;
+  margin: 0;
+  padding: 1.5rem;
+  border: 1px solid var(--pageos-border);
+  background: rgba(2, 4, 10, 0.94);
+  box-shadow: var(--pageos-shadow);
+  color: var(--pageos-success);
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+
+.desktop-shell {
+  position: relative;
+  overflow: hidden;
+}
+
+.desktop-shell__wallpaper {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255, 176, 0, 0.18), transparent 18%),
+    radial-gradient(circle at 75% 25%, rgba(57, 255, 20, 0.15), transparent 22%),
+    linear-gradient(145deg, rgba(17, 25, 60, 0.95), rgba(10, 14, 39, 0.98));
+}
+
+.desktop-shell__statusbar,
+.desktop-shell__dock,
+.mobile-shell__header,
+.mobile-shell__app-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.2rem;
+  background: rgba(10, 14, 39, 0.76);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 176, 0, 0.2);
+}
+
+.desktop-shell__workspace {
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 126px);
+  padding: 1.5rem;
+}
+
+.desktop-shell__dock {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid rgba(255, 176, 0, 0.2);
+  border-bottom: none;
+}
+
+.pageos-window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--pageos-surface);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--pageos-shadow);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.pageos-window--amber {
+  border-color: var(--pageos-border);
+}
+
+.pageos-window--green {
+  border-color: var(--pageos-border-strong);
+}
+
+.pageos-window.is-minimized {
+  display: none;
+}
+
+.pageos-window__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  touch-action: none;
+}
+
+.pageos-window__header h2,
+.pageos-window__header p {
+  margin: 0;
+}
+
+.pageos-window__header h2 {
+  font-size: 1rem;
+}
+
+.pageos-window__header p {
+  color: var(--pageos-muted);
+  font-size: 0.8rem;
+}
+
+.pageos-window__close,
+.dock-item,
+.mobile-shell__app-header button,
+.launcher-card {
+  border: 1px solid rgba(255, 176, 0, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  color: inherit;
+  border-radius: 12px;
+}
+
+.pageos-window__close {
+  width: 2rem;
+  height: 2rem;
+}
+
+.pageos-window__body {
+  padding: 1rem;
+  overflow: auto;
+}
+
+.dock-item,
+.launcher-card,
+.mobile-shell__app-header button {
+  padding: 0.75rem 1rem;
+}
+
+.mobile-shell {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: linear-gradient(180deg, rgba(17, 25, 60, 0.98), rgba(10, 14, 39, 1));
+}
+
+.mobile-shell__header {
+  align-items: flex-end;
+}
+
+.mobile-shell__header h1,
+.mobile-shell__header p {
+  margin: 0;
+}
+
+.mobile-shell__header p {
+  color: var(--pageos-accent-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.mobile-shell__launcher {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.launcher-card {
+  display: grid;
+  gap: 0.5rem;
+  min-height: 7rem;
+  padding: 1rem;
+  text-align: left;
+}
+
+.mobile-shell__app {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: rgba(10, 14, 39, 0.98);
+}
+
+.mobile-shell__app.is-hidden {
+  display: none;
+}
+
+.mobile-shell__app-body {
+  padding: 1rem;
+  overflow: auto;
+}
+
+@media (max-width: 767px) {
+  body {
+    overflow: auto;
+  }
+
+  .desktop-shell__workspace {
+    padding: 1rem;
+  }
+
+  .mobile-shell__launcher {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes splash-fade {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

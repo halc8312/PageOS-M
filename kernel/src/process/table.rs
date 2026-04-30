@@ -17,6 +17,11 @@ impl<const N: usize> ProcessTable<N> {
     }
 
     #[must_use]
+    pub const fn is_empty(&self) -> bool {
+        N == 0
+    }
+
+    #[must_use]
     pub fn get(&self, index: usize) -> Option<ProcessControlBlock> {
         self.entries.get(index).copied()
     }

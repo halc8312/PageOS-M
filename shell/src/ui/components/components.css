@@ -1,0 +1,16 @@
+.dock-item:hover,
+.launcher-card:hover,
+.pageos-window__close:hover,
+.mobile-shell__app-header button:hover {
+  border-color: rgba(255, 176, 0, 0.55);
+  box-shadow: 0 0 0 1px rgba(255, 176, 0, 0.12), 0 0 18px rgba(255, 176, 0, 0.12);
+}
+
+.launcher-card strong,
+.dock-item {
+  color: var(--pageos-accent-strong);
+}
+
+.launcher-card span {
+  color: var(--pageos-muted);
+}

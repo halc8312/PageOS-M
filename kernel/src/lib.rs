@@ -1,4 +1,4 @@
-#![cfg_attr(not(test), no_std)]
+#![cfg_attr(all(target_arch = "wasm32", not(test)), no_std)]
 #![deny(clippy::all, clippy::pedantic)]
 
 extern crate alloc;
@@ -8,7 +8,7 @@ pub mod boot;
 pub mod ipc;
 pub mod log;
 pub mod mm;
-#[cfg(not(test))]
+#[cfg(all(target_arch = "wasm32", not(test)))]
 pub mod panic;
 pub mod process;
 pub mod sched;
@@ -59,7 +59,7 @@ pub extern "C" fn syscall_dispatch(number: u32, arg0: u32, arg1: u32, arg2: u32)
 
 #[unsafe(no_mangle)]
 pub extern "C" fn boot_log_count() -> u32 {
-    BOOT_LOGS.len() as u32
+    saturating_u32(BOOT_LOGS.len())
 }
 
 #[unsafe(no_mangle)]
@@ -71,12 +71,12 @@ pub extern "C" fn boot_log_ptr(index: u32) -> *const u8 {
 
 #[unsafe(no_mangle)]
 pub extern "C" fn boot_log_len(index: u32) -> u32 {
-    BOOT_LOGS.get(index as usize).map_or(0, |entry| entry.len() as u32)
+    BOOT_LOGS.get(index as usize).map_or(0, |entry| saturating_u32(entry.len()))
 }
 
 #[unsafe(no_mangle)]
 pub extern "C" fn process_count() -> u32 {
-    PROCESS_TABLE.lock().len() as u32
+    saturating_u32(PROCESS_TABLE.lock().len())
 }
 
 #[unsafe(no_mangle)]
@@ -85,6 +85,11 @@ pub extern "C" fn process_snapshot(index: u32) -> ProcessSnapshot {
         .lock()
         .get(index as usize)
         .map_or(ProcessSnapshot::new(0, ProcessState::Idle, 0), process::pcb::ProcessControlBlock::snapshot)
+}
+
+#[must_use]
+fn saturating_u32(value: usize) -> u32 {
+    u32::try_from(value).unwrap_or(u32::MAX)
 }
 
 #[cfg(test)]

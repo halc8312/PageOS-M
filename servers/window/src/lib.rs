@@ -1,4 +1,4 @@
-#![cfg_attr(not(test), no_std)]
+#![cfg_attr(all(target_arch = "wasm32", not(test)), no_std)]
 #![deny(clippy::all, clippy::pedantic)]
 
 use pageos_abi::{WindowManifest, WindowRect};
@@ -19,5 +19,13 @@ pub const fn manifest() -> WindowManifest {
             height: 280,
         },
         flags: 0,
+    }
+}
+
+#[cfg(all(target_arch = "wasm32", not(test)))]
+#[panic_handler]
+fn panic(_info: &core::panic::PanicInfo<'_>) -> ! {
+    loop {
+        core::hint::spin_loop();
     }
 }
