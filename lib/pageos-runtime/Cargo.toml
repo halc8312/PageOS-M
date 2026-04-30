@@ -1,0 +1,11 @@
+[package]
+name = "pageos-runtime"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["rlib"]
+
+[dependencies]
+pageos-abi.workspace = true

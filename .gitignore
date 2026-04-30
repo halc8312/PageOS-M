@@ -1,0 +1,10 @@
+node_modules/
+dist/
+pnpm-lock.yaml
+playwright-report/
+test-results/
+coverage/
+.vite/
+shell/public/wasm/*.wasm
+target/
+.DS_Store

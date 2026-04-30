@@ -1,0 +1,21 @@
+{
+  "name": "pageos-monorepo",
+  "private": true,
+  "version": "0.1.0-alpha",
+  "packageManager": "pnpm@9.15.3",
+  "scripts": {
+    "build:rust": "bash ./scripts/build-all.sh",
+    "build": "bash ./scripts/build-all.sh && vite build",
+    "dev": "bash ./scripts/build-all.sh && vite",
+    "preview": "vite preview",
+    "typecheck": "tsc --project shell/tsconfig.json --noEmit",
+    "test:e2e": "playwright test",
+    "test": "pnpm typecheck && playwright test",
+    "lint": "pnpm typecheck"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.19"
+  }
+}

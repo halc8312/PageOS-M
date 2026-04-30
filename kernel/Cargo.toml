@@ -1,0 +1,13 @@
+[package]
+name = "kernel"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+linked_list_allocator.workspace = true
+pageos-abi.workspace = true
+spin.workspace = true
