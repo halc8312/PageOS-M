@@ -1,0 +1,32 @@
+[workspace]
+members = [
+  "kernel",
+  "servers/vfs",
+  "servers/window",
+  "servers/device",
+  "servers/network",
+  "lib/pageos-abi",
+  "lib/pageos-runtime",
+  "lib/pageos-fs",
+  "apps/shell",
+  "apps/terminal",
+  "apps/editor",
+  "apps/filemgr",
+  "apps/sysmon",
+  "apps/settings",
+  "apps/calc",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2024"
+license = "MIT"
+version = "0.1.0-alpha"
+authors = ["halc8312"]
+
+[workspace.dependencies]
+linked_list_allocator = { version = "0.10.6", default-features = false, features = ["use_spin"] }
+pageos-abi = { path = "lib/pageos-abi" }
+pageos-fs = { path = "lib/pageos-fs" }
+pageos-runtime = { path = "lib/pageos-runtime" }
+spin = { version = "0.9.8", default-features = false, features = ["mutex", "spin_mutex"] }
